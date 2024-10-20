@@ -10,7 +10,7 @@ let convert = () => {
         $('#sgd,#sgd~*').addClass('is-invalid text-danger');
     }
     // Check if the input value is less than 0 (currency should not be less than 0), if so, throw an error to the user to correct their mistake.
-    else if (amt > 0) {
+    else if (amt < 0) {
         $('#inputs').append(`<p class="text-danger err-msg">Amount should not be negative (-) or below 0.</p>`);
         $('#sgd,#sgd~*').addClass('is-invalid text-danger');
     }
@@ -22,8 +22,13 @@ let convert = () => {
         $('resultHead').removeClass('d-none');
         $('resultBody').removeClass('d-none');
         // Update the result with the appropriate values
-        $('#sgdAmt').html("SGD " + amt);
-        $('#myrAmt').html("MYR " + (Math.round(parseFloat(amt) * exchangeRate * 100) / 100));
+        $('#resultHead').append("SGD " + amt);
+        $('#resultBody').append("MYR " + (Math.round(parseFloat(amt) * exchangeRate * 100) / 100));
+        $('#result').removeClass("bg-danger bg-success bg-warning");
+        $('#result').html("");
+        $('#result').append("<p>"+resultHead+" is equilivant to "+resultBody+"</p>");
+        
+
     }
 }
 // Auto rounding of inputs (& format) to the correct 2 decimal place.
